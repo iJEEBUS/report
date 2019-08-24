@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import 'typeface-roboto';
-import '../../styling/LoginFormStyle.css';
+import '../../styling/forms/LoginForm.css';
 
 class LoginForm extends Component {
   /**
@@ -60,6 +60,7 @@ class LoginForm extends Component {
                   variant="contained"
                   color="primary"
                   className={"submit"}
+                  href="home"
                 >
                   Sign In
                 </Button>

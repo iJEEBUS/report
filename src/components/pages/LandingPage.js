@@ -12,7 +12,7 @@ import LoginForm from '../forms/LoginForm';
 import SignUpForm from '../forms/SignUpForm';
 import ResetPasswordForm from '../forms/ResetPasswordForm';
 
-import "../../styling/LandingPage.css"
+import "../../styling/pages/LandingPage.css"
 
 /**
  * Styling for the landing page.

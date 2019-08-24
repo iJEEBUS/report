@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import 'typeface-roboto';
-import '../../styling/ResetPasswordFormStyle.css';
+import '../../styling/forms/ResetPasswordForm.css';
 
 class ResetPasswordForm extends Component {
   /**
