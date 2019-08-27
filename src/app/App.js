@@ -4,6 +4,8 @@ import {
   Route,
  } from 'react-router-dom';
 
+ // history
+
  // Routes for different pages
  import * as ROUTES from '../constants/routes';
  
@@ -27,7 +29,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       
     }
   }
@@ -38,10 +40,10 @@ class App extends Component {
   render(){
     return(
     <Router>
-      { !this.state.loggedIn ? <Route exact path={ROUTES.LANDING} component={LandingPage} firebaseContext={null} /> : null }
-      { this.state.loggedIn ? <Route path={ROUTES.HOME} component={HomePage} firebaseContext={null} /> : null }
-      { this.state.loggedIn ? <Route path={ROUTES.ACCOUNT} component={AccountPage} firebaseContext={null} /> : null }
-      { this.state.loggedIn ? <Route path={ROUTES.PROBLEMS} component={ProblemsPage} firebaseContext={null} />: null }      
+      { this.state.loggedIn ? <Route exact path={ROUTES.LANDING} component={LandingPage} /> : null }
+      { this.state.loggedIn ? <Route path={ROUTES.HOME} component={HomePage} /> : null }
+      { this.state.loggedIn ? <Route path={ROUTES.ACCOUNT} component={AccountPage} /> : null }
+      { this.state.loggedIn ? <Route path={ROUTES.PROBLEMS} component={ProblemsPage} />: null }      
       
     </Router>
     );

@@ -28,9 +28,16 @@ class ResetPasswordForm extends Component {
   handleLoggingIn = () => {
     this.props.onDataChanged("loggingIn");
   }
+  handleFormChange = (e) => {
+    this.props.onDataChanged(e.target.name)
+  }
 
   onChange = (e) => {
     this.setState({ [e.target.name] : e.target.value });
+  }
+
+  handleSubmit = () => {
+    // reset password logic here
   }
   
     render () {
@@ -42,7 +49,7 @@ class ResetPasswordForm extends Component {
               <Typography component="h1" variant="h5">
                 Reset password
               </Typography>
-              <form className={"form"} noValidate>
+              <form className={"form"} noValidate onSubmit={this.handleSubmit}>
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -67,12 +74,12 @@ class ResetPasswordForm extends Component {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link onClick={this.handleLoggingIn} variant="body2">
+                    <Link onClick={this.handleFormChange} name="loggingIn" variant="body2">
                       Have an account? Login
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link onClick={this.handleSignup} variant="body2">
+                    <Link onClick={this.handleFormChange} name="signingUp" variant="body2">
                       {"No account? Sign Up"}
                     </Link>
                   </Grid>

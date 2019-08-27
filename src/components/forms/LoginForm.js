@@ -10,8 +10,17 @@ import Typography from '@material-ui/core/Typography';
 import 'typeface-roboto';
 import '../../styling/forms/LoginForm.css';
 
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+
 class LoginForm extends Component {
-  
+
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -24,29 +33,34 @@ class LoginForm extends Component {
   /**
    * Send data back to the parent to change forms.
    */
-  handleSignup = () => {
-    this.props.onDataChanged("signingUp");
+  handleFormChange = (e) => {
+    this.props.onDataChanged(e.target.name);
   }
-  handlePasswordReset = () => {
-    this.props.onDataChanged("forgotPassword");
-  }
-
+  
   onChange = (e) => {
     this.setState({
       [e.target.name] : e.target.value
     })
   }
 
+  handleSubmit = () => {
+    
+    // handle auth with firebase
+    this.props.history.push('/home');
+
+  }
+
     render () {
       
       const isInvalid = this.state.email === '' || this.state.password === '';
+      const { match, location, history } = this.props;
 
         return(
             <div>
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
-              <form className={"form"} noValidate>
+              <form className={"form"} noValidate onSubmit={this.handleSubmit}>
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -82,18 +96,17 @@ class LoginForm extends Component {
                   variant="contained"
                   color="primary"
                   className={"submit"}
-                  href="home"
                 >
                   Sign In
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link onClick={this.handlePasswordReset} variant="body2">
+                    <Link onClick={this.handleFormChange} name="forgotPassword" variant="body2">
                       Forgot password?
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link onClick={this.handleSignup} variant="body2">
+                    <Link onClick={this.handleFormChange} name="signingUp" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>
@@ -101,7 +114,7 @@ class LoginForm extends Component {
                 <Box mt={5}>
                 <Typography variant="body2" color="textSecondary" align="center">
                     {'Copyright © '}
-                    <Link color="inherit" href="https://material-ui.com/">
+                    <Link color="inherit">
                         AIHPI
                     </Link>{' '}
                     {new Date().getFullYear()}
@@ -113,4 +126,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);
