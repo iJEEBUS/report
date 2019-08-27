@@ -11,6 +11,16 @@ import 'typeface-roboto';
 import '../../styling/forms/LoginForm.css';
 
 class LoginForm extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      error: null,
+    }
+  }
+
   /**
    * Send data back to the parent to change forms.
    */
@@ -21,7 +31,16 @@ class LoginForm extends Component {
     this.props.onDataChanged("forgotPassword");
   }
 
+  onChange = (e) => {
+    this.setState({
+      [e.target.name] : e.target.value
+    })
+  }
+
     render () {
+      
+      const isInvalid = this.state.email === '' || this.state.password === '';
+
         return(
             <div>
               <Typography component="h1" variant="h5">
@@ -38,6 +57,7 @@ class LoginForm extends Component {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  onChange={this.onChange}
                 />
                 <TextField
                   variant="outlined"
@@ -49,12 +69,14 @@ class LoginForm extends Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  onChange={this.onChange}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
                 />
                 <Button
+                  disabled={isInvalid}
                   type="submit"
                   fullWidth
                   variant="contained"

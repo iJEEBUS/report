@@ -19,7 +19,6 @@ firestore.rules
 
 # production
 /build
-/public
 
 # misc
 .DS_Store

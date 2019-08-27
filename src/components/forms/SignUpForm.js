@@ -9,6 +9,18 @@ import 'typeface-roboto';
 import '../../styling/forms/SignUpForm.css';
 
 class SignUpForm extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      firstName: '',
+      lastName: '',
+      passwordOne: '',
+      passwordTwo: '',
+      error: null,
+    }
+  }
   /**
   * Send data back to the parent to change forms.
   */
@@ -19,7 +31,18 @@ class SignUpForm extends Component {
     this.props.onDataChanged("forgotPassword");
   }
 
+  onChange = (e) => {
+    this.setState({ [e.target.name] : e.target.value });
+  }
+
     render () {
+
+      const isInvalid = this.state.email === '' ||
+                        this.state.firstName === '' ||
+                        this.state.lastName === '' ||
+                        this.state.passwordOne === '' ||
+                        this.state.passwordTwo === '' ||
+                        this.state.passwordOne !== this.state.passwordTwo;
         return(
             <div>
               <Typography component="h1" variant="h5">
@@ -36,39 +59,56 @@ class SignUpForm extends Component {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  onChange={this.onChange}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
-                  name="password"
+                  id="firsName"
+                  label="First Name"
+                  name="firstName"
+                  autoFocus
+                  onChange={this.onChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoFocus
+                  onChange={this.onChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="passwordOne"
                   label="Password"
                   type="password"
-                  id="password"
+                  id="passwordOne"
                   autoComplete="current-password"
+                  onChange={this.onChange}
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
-                  id="first_name"
-                  label="First Name"
-                  name="first_name"
-                  autoFocus
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="first_name"
-                  label="Last Name"
-                  name="last_name"
-                  autoFocus
+                  name="passwordTwo"
+                  label="Password"
+                  type="password"
+                  id="passwordTwo"
+                  autoComplete="current-password"
+                  onChange={this.onChange}
                 />
                 <Button
+                  disabled={isInvalid}
                   type="submit"
                   fullWidth
                   variant="contained"

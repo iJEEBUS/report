@@ -9,6 +9,16 @@ import 'typeface-roboto';
 import '../../styling/forms/ResetPasswordForm.css';
 
 class ResetPasswordForm extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      error: null,
+    }
+  }
+
+
   /**
    * Send data back to the parent to change forms.
    */
@@ -18,8 +28,15 @@ class ResetPasswordForm extends Component {
   handleLoggingIn = () => {
     this.props.onDataChanged("loggingIn");
   }
+
+  onChange = (e) => {
+    this.setState({ [e.target.name] : e.target.value });
+  }
   
     render () {
+
+      const isInvalid = this.state.email === '';
+
         return(
             <div>
               <Typography component="h1" variant="h5">
@@ -36,8 +53,10 @@ class ResetPasswordForm extends Component {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  onChange={this.onChange}
                 />
                 <Button
+                  disabled={isInvalid}
                   type="submit"
                   fullWidth
                   variant="contained"
