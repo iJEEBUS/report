@@ -39,6 +39,13 @@ class LoginForm extends Component {
     this.props.onDataChanged(e.target.name);
   }
   
+  /**
+   * send login info up to parent
+   */
+  toggleLogin = () => {
+    this.props.onDataChanged()
+  }
+  
   onChange = (e) => {
     this.setState({
       [e.target.name] : e.target.value

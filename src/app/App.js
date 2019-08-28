@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
  } from 'react-router-dom';
+ import { PrivateRoute } from '../components/helpers/app/PrivateRoute';
 
  // firebase instance
  import Firebase from '../firebase';
@@ -42,10 +43,10 @@ class App extends Component {
 
     return(
       <Router>
-        { !Firebase.auth().currentUser ? <Route exact path={ROUTES.LANDING} component={LandingPage} firebase={Firebase} /> : null }
-        { Firebase.auth().currentUser ? <Route path={ROUTES.HOME} component={HomePage} firebase={Firebase} /> : null }
-        { Firebase.auth().currentUser ? <Route path={ROUTES.ACCOUNT} component={AccountPage} firebase={Firebase} /> : null }
-        { Firebase.auth().currentUser ? <Route path={ROUTES.PROBLEMS} component={ProblemsPage} firebase={Firebase} />: null } 
+        <Route exact path={ROUTES.LANDING} component={LandingPage} firebase={Firebase} /> 
+        <PrivateRoute path={ROUTES.HOME} component={HomePage} firebase={Firebase} />
+        <PrivateRoute path={ROUTES.ACCOUNT} component={AccountPage} firebase={Firebase} />
+        <PrivateRoute path={ROUTES.PROBLEMS} component={ProblemsPage} firebase={Firebase} />
       </Router>
     );
     
