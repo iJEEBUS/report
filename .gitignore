@@ -2,7 +2,7 @@
 
 # firebase
 .firebase/
-firestore.js
+firebase.js
 .firebaserc
 firebase.json
 firestore.indexes.json
