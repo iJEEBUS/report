@@ -13,6 +13,8 @@ import '../../styling/forms/LoginForm.css';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
+import Firebase from '../../firebase';
+
 class LoginForm extends Component {
 
   static propTypes = {
@@ -43,17 +45,25 @@ class LoginForm extends Component {
     })
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     
     // handle auth with firebase
-    this.props.history.push('/home');
-
+    Firebase.auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() =>{
+        this.props.history.push('/home');
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+    });
   }
 
     render () {
       
       const isInvalid = this.state.email === '' || this.state.password === '';
-      const { match, location, history } = this.props;
+      //const { match, location, history } = this.props;
 
         return(
             <div>

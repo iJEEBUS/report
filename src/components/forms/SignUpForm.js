@@ -11,6 +11,9 @@ import '../../styling/forms/SignUpForm.css';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
+// firebase
+import Firebase from '../../firebase';
+
 class SignUpForm extends Component {
 
   static propTypes = {
@@ -30,6 +33,7 @@ class SignUpForm extends Component {
       error: null,
     }
   }
+  
   /**
   * Send data back to the parent to change forms.
   */
@@ -48,8 +52,19 @@ class SignUpForm extends Component {
    * Attempt to create a new account with firebase.
    * Automatically login if it is a success.
    */
-  handleSubmit = () => {
-    this.props.history.push('/home');
+  handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // handle auth with firebase
+    Firebase.auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.passwordOne)
+      .then(() =>{
+        this.props.history.push('/home');
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+    });
   }
 
   

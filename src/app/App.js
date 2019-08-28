@@ -4,7 +4,8 @@ import {
   Route,
  } from 'react-router-dom';
 
- // history
+ // firebase instance
+ import Firebase from '../firebase';
 
  // Routes for different pages
  import * as ROUTES from '../constants/routes';
@@ -38,17 +39,22 @@ class App extends Component {
    * Render the pages the user requests depending if they are logged in or not.
    */
   render(){
+
     return(
-    <Router>
-      { this.state.loggedIn ? <Route exact path={ROUTES.LANDING} component={LandingPage} /> : null }
-      { this.state.loggedIn ? <Route path={ROUTES.HOME} component={HomePage} /> : null }
-      { this.state.loggedIn ? <Route path={ROUTES.ACCOUNT} component={AccountPage} /> : null }
-      { this.state.loggedIn ? <Route path={ROUTES.PROBLEMS} component={ProblemsPage} />: null }      
-      
-    </Router>
+      <Router>
+        { !Firebase.auth().currentUser ? <Route exact path={ROUTES.LANDING} component={LandingPage} firebase={Firebase} /> : null }
+        { Firebase.auth().currentUser ? <Route path={ROUTES.HOME} component={HomePage} firebase={Firebase} /> : null }
+        { Firebase.auth().currentUser ? <Route path={ROUTES.ACCOUNT} component={AccountPage} firebase={Firebase} /> : null }
+        { Firebase.auth().currentUser ? <Route path={ROUTES.PROBLEMS} component={ProblemsPage} firebase={Firebase} />: null } 
+      </Router>
     );
+    
   }
 
 }
 
+
+/**
+ * 
+ */
 export default App;

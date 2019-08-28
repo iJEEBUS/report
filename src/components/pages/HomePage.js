@@ -22,6 +22,8 @@ import Welcome from '../helpers/homepage/Welcome';
 import Statistics from '../helpers/homepage/Statistics';
 import FeaturedProblems from '../helpers/homepage/FeaturedProblems';
 
+import Firebase from '../../firebase';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -124,6 +126,16 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    if (Firebase.auth().currentUser) {
+      Firebase.auth().signOut();
+    }
+    
+
+  }
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (

@@ -7,6 +7,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import SettingIcon from '@material-ui/icons/SettingsApplications';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import WarningIcon from '@material-ui/icons/Warning';
+import Firebase from '../../../firebase';
 
 export const mainListItems = (
   <div>
@@ -33,6 +34,9 @@ export const mainListItems = (
 );
 
 export const secondaryListItems = (
+
+  
+
   <div>
      <ListSubheader inset>Settings</ListSubheader>
     <ListItem button>
@@ -45,7 +49,7 @@ export const secondaryListItems = (
       <ListItemIcon>
         <LockIcon />
       </ListItemIcon>
-      <ListItemText primary="Sign out" />
+      <ListItemText primary="Sign out" onClick={ () => Firebase.auth().signOut() }/>
     </ListItem>
     <ListItem button>
       <ListItemIcon>
