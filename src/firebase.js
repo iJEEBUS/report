@@ -1,3 +1,0 @@
-/**
-* Firebase configs go here.
-*/
