@@ -7,7 +7,11 @@ import LockIcon from '@material-ui/icons/Lock';
 import SettingIcon from '@material-ui/icons/SettingsApplications';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import WarningIcon from '@material-ui/icons/Warning';
+import DeleteDialog from './DeleteDialog';
+import PasswordDialog from './PasswordDialog';
+
 import Firebase from '../../../firebase';
+import { Route, Redirect } from 'react-router-dom';
 
 export const mainListItems = (
   <div>
@@ -33,9 +37,45 @@ export const mainListItems = (
   </div>
 );
 
+const handleChangePassword = () => {
+  // get the new password and update it on the users profile
+  let passwordOne = prompt("Please enter your new password");
+  let passwordTwo = prompt("Please re-enter your new password");
+
+  if (passwordOne === passwordTwo)
+  {
+    Firebase.auth().currentUser.updatePassword(passwordOne).then(alert("Success! Your password has been changed."));
+  } else {
+    alert("Passwords not the same! Please try again.");
+  }
+}
+
+const handleSignout = () => {
+
+  // sign the user out of Firebase then reload the window on a success
+  Firebase.auth().signOut()
+    .then(window.location.reload())
+    .catch((err) => {
+      // handle errors here
+      alert(err);
+      }
+    );
+}
+
+const handleDeleteAccount = () => {
+  // send user email to change their password
+  if (window.confirm("Are you sure you want to delete your account?")) {
+    Firebase.auth().currentUser.delete()
+      .then(window.location.reload())
+      .catch((err) => {
+      // handle errors here
+    });
+  }
+}
+
 export const secondaryListItems = (
 
-  
+
 
   <div>
      <ListSubheader inset>Settings</ListSubheader>
@@ -43,19 +83,19 @@ export const secondaryListItems = (
       <ListItemIcon>
         <SettingIcon />
       </ListItemIcon>
-      <ListItemText primary="Change password" />
+      <PasswordDialog />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <LockIcon />
       </ListItemIcon>
-      <ListItemText primary="Sign out" onClick={ () => Firebase.auth().signOut() }/>
+      <ListItemText primary="Sign out" onClick={handleSignout} />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <WarningIcon color="error" />
       </ListItemIcon>
-      <ListItemText primary="Delete account" />
+      <DeleteDialog />
     </ListItem>
   </div>
 );

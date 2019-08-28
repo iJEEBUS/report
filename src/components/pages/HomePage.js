@@ -186,7 +186,7 @@ export default function Dashboard() {
             {/* Welcome Message */}
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-                <Welcome />
+                <Welcome {...Firebase.auth().currentUser} />
               </Paper>
             </Grid>
             {/* Problem statistics */}

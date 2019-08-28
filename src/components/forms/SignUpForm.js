@@ -54,17 +54,17 @@ class SignUpForm extends Component {
    */
   handleSubmit = (e) => {
     e.preventDefault();
-    
+    let name = this.state.firstName + ' ' + this.state.lastName;
     // handle auth with firebase
     Firebase.auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.passwordOne)
-      .then(() =>{
-        this.props.history.push('/home');
+      .then((user) => {
+        user.user.updateProfile({ displayName : name });
       })
       .catch((err) => {
-        console.log(err);
         alert(err);
     });
+    this.props.history.push('/home');
   }
 
   
@@ -166,7 +166,7 @@ class SignUpForm extends Component {
                 <Box mt={5}>
                 <Typography variant="body2" color="textSecondary" align="center">
                     {'Copyright © '}
-                    <Link color="inherit" href="https://material-ui.com/">
+                    <Link color="inherit">
                         AIHPI
                     </Link>{' '}
                     {new Date().getFullYear()}
